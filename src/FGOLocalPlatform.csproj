@@ -9,10 +9,7 @@
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     <EnableDefaultItems>false</EnableDefaultItems>
-    <!-- The one place the version is written. The About page and the updater both read it back
-         from the assembly, and package.ps1 names the release zip after it. -->
     <Version>1.1.2</Version>
-    <!-- Ahead-of-time compiled so the first window appears without waiting for the JIT. -->
     <PublishReadyToRun>true</PublishReadyToRun>
     <TieredPGO>true</TieredPGO>
     <Product>FGOAC scooby</Product>
@@ -27,43 +24,41 @@
   <PropertyGroup>
     <ApplicationIcon>platform.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <RootNamespace />
+    <RootNamespace/>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DeckReaderUI\**\*.cs" />
-    <Compile Include="DeckReaderUI.Kancolle\**\*.cs" />
-    <Compile Include="FGOLocalPlatform\**\*.cs" />
-    <Compile Include="FGOLocalPlatform.PhotoAssets\**\*.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DeckReaderUI\**\*.cs"/>
+    <Compile Include="DeckReaderUI.Kancolle\**\*.cs"/>
+    <Compile Include="FGOLocalPlatform\**\*.cs"/>
+    <Compile Include="FGOLocalPlatform.PhotoAssets\**\*.cs"/>
+    <Compile Include="Properties\AssemblyInfo.cs"/>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="app.xaml" />
-    <Page Include="audiosettingsview.xaml" />
-    <Page Include="cardquantitywindow.xaml" />
-    <Page Include="cardvariantswindow.xaml" />
-    <Page Include="controlsettingsview.xaml" />
-    <Page Include="cursorsettingsview.xaml" />
-    <Page Include="debugsettingsview.xaml" />
-    <Page Include="diagnosticsview.xaml" />
-    <Page Include="mainwindow.xaml" />
-    <Page Include="nameprompt.xaml" />
-    <Page Include="newaccountdialog.xaml" />
-    <Page Include="photocontrols.xaml" />
-    <Page Include="serversettingsview.xaml" />
-    <Page Include="summonsettingswindow.xaml" />
-    <Page Include="whatsnewdialog.xaml" />
+    <ApplicationDefinition Include="app.xaml"/>
+    <Page Include="audiosettingsview.xaml"/>
+    <Page Include="cardquantitywindow.xaml"/>
+    <Page Include="cardvariantswindow.xaml"/>
+    <Page Include="controlsettingsview.xaml"/>
+    <Page Include="cursorsettingsview.xaml"/>
+    <Page Include="debugsettingsview.xaml"/>
+    <Page Include="banners.xaml"/>
+    <Page Include="diagnosticsview.xaml"/>
+    <Page Include="mainwindow.xaml"/>
+    <Page Include="nameprompt.xaml"/>
+    <Page Include="newaccountdialog.xaml"/>
+    <Page Include="photocontrols.xaml"/>
+    <Page Include="serversettingsview.xaml"/>
+    <Page Include="summonsettingswindow.xaml"/>
+    <Page Include="whatsnewdialog.xaml"/>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="platform.ico" />
+    <Resource Include="platform.ico"/>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FGOLocalPlatform.CardNames.json" LogicalName="FGOLocalPlatform.CardNames.json" />
-    <EmbeddedResource Include="FGOLocalPlatform.CraftEffects.json" LogicalName="FGOLocalPlatform.CraftEffects.json" />
+    <EmbeddedResource Include="FGOLocalPlatform.CardNames.json" LogicalName="FGOLocalPlatform.CardNames.json"/>
+    <EmbeddedResource Include="FGOLocalPlatform.CraftEffects.json" LogicalName="FGOLocalPlatform.CraftEffects.json"/>
   </ItemGroup>
   <ItemGroup>
-    <!-- The author's build references a copy of this assembly beside the game. The package is
-         the same library at the same assembly identity (0.8.8.0), restored from nuget.org, so
-         the project builds on a machine that has no game install. -->
-    <PackageReference Include="ZstdSharp.Port" Version="0.8.8" />
+    <PackageReference Include="ZstdSharp.Port" Version="0.8.8"/>
   </ItemGroup>
 </Project>
