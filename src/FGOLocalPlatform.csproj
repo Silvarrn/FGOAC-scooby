@@ -41,7 +41,7 @@
     <Page Include="controlsettingsview.xaml"/>
     <Page Include="cursorsettingsview.xaml"/>
     <Page Include="debugsettingsview.xaml"/>
-    <Page Include="banners.xaml"/>
+    <Page Include="Sbanners.xaml"/>
     <Page Include="diagnosticsview.xaml"/>
     <Page Include="mainwindow.xaml"/>
     <Page Include="nameprompt.xaml"/>
