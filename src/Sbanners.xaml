@@ -3,11 +3,7 @@
   <ScrollViewer VerticalScrollBarVisibility="Auto">
     <StackPanel Margin="28" MaxWidth="900" HorizontalAlignment="Left">
       <TextBlock Text="Summon Banners" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,10" />
-      <StackPanel>
-            <CheckBox Name="HideBanners" Content="Hide Unused Banners" Margin="0,8" Checked="Option_OnChanged" Unchecked="Option_OnChanged" />
-            <TextBlock Text="Removes banners that aren't directly specified on the server. Reduces the number of options on the Summon Menu." Style="{StaticResource HelpTextStyle}" Margin="24,0,0,14" />
-      </StackPanel>
-        <TextBlock Text="Limited Time Events" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,10" />
+      <TextBlock Text="Limited Time Events" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,10" />
       <StackPanel>
       <TextBlock Text="Allows the player to hide Limited Time Event Banners from the Terminal Page, use the Checkbox to decide what banners should appear! Selecting none will make all banners appear." Style="{StaticResource HelpTextStyle}" Margin="0,0,0,12" />
       <Border BorderBrush="{StaticResource LineBrush}" BorderThickness="1" Background="{StaticResource PlateBrush}" Padding="12" Margin="0,0,0,18">

@@ -23,7 +23,6 @@ public partial class Sbanners : UserControl
 	public Sbanners()
 	{
 		InitializeComponent();
-		bannerOptions["HideBanners"] = HideBanners;
 		bannerOptions["LTE8008"] = LTE8008;
 		bannerOptions["LTE8010"] = LTE8010;
 		bannerOptions["LTE8011"] = LTE8011;
