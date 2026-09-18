@@ -60,8 +60,8 @@
             <CheckBox Name="LTE8049" Content="Santa Fran's Christmas Present! - Revival" Margin="0,8" Checked="Option_OnChanged" Unchecked="Option_OnChanged" />
       </StackPanel>
       <WrapPanel Margin="0,18,0,12">
-        <Button Content="Save" Width="150" Margin="0,0,8,0" Click="Save_OnClick" />
-        <Button Content="Turn All Off" Width="150" Click="DisableAll_OnClick" />
+        <Button Content="Save" Width="150" Height="30" Margin="0,0,8,0" Click="Save_OnClick" />
+        <Button Content="Turn All Off" Width="150" Height="30" Click="DisableAll_OnClick" />
       </WrapPanel>
       <TextBlock Name="StatusText" Style="{StaticResource HelpTextStyle}" />
     </StackPanel>
