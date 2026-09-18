@@ -677,7 +677,7 @@
                 </ScrollViewer>
               </TabItem>
               <TabItem Header="Banners">
-                <local:sbanners />
+                <local:Sbanners />
               </TabItem>
               <TabItem Header="Debug">
                 <local:DebugSettingsView />
