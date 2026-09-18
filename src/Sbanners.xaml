@@ -13,6 +13,7 @@
       <Border BorderBrush="{StaticResource LineBrush}" BorderThickness="1" Background="{StaticResource PlateBrush}" Padding="12" Margin="0,0,0,18">
         <TextBlock Text="Changes to the server files must be made to allow these options to work. Use the Button below to apply the changes to these files first" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" />
       </Border>
+      <Button Content="Apply FGO Event Toggle Patch" Width="240" HorizontalAlignment="Left" Margin="0,0,0,12" Click="ApplyEventPatch_OnClick" />
             <CheckBox Name="LTE8008" Content="Gudaguda Honnoji Temple" Margin="0,8" Checked="Option_OnChanged" Unchecked="Option_OnChanged" />
             <CheckBox Name="LTE8010" Content="The Garden of Order - Revival" Margin="0,8" Checked="Option_OnChanged" Unchecked="Option_OnChanged" />
             <CheckBox Name="LTE8011" Content="600,000 Master Celebration" Margin="0,8" Checked="Option_OnChanged" Unchecked="Option_OnChanged" />
