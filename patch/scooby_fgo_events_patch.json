@@ -1,6 +1,3 @@
-// This Patch file modifies the FGO server config to add two new options: enabled_tlf_open_ids and enabled_singularity_ids. 
-// These options allow Scooby to toggle individual FGO terminal banners and open-events on/off via fgo.yaml, without vendoring index.py/config.py in Scooby.
-
 {
   "marker": "fgo_event_toggles_v1",
   "edits": [
