@@ -13,8 +13,8 @@
       <Button Content="Apply FGO Event Toggle Patch" Width="240" HorizontalAlignment="Left" Margin="0,0,0,12" Click="ApplyEventPatch_OnClick" />
       <TextBlock Name="PatchStatusText" Style="{StaticResource HelpTextStyle}"/>
       </WrapPanel>
-      <!-- This Patch file modifies the FGO server config to add two new options: enabled_tlf_open_ids and enabled_singularity_ids.
-           The former provides logging for identifying banners that are being published by the server. The latter is used to control which banners are displayed in the terminal page. 
+       <!-- This patch adds the enabled_singularity_ids allowlist to the FGO server config.
+         It controls the event catalog and the derived banner list.
            Once applied. These options allow Scooby to toggle individual FGO terminal banners and open-events on/off via fgo.yaml, removing the need to vendor index.py/config.py in Scooby.
            This patch file only needs to be applied once, and will remain in effect until the server config is updated. If the server config is updated, this patch file will need to be re-applied. -->
             <CheckBox Name="LTE8008" Content="Gudaguda Honnoji Temple" Margin="0,8" Checked="Option_OnChanged" Unchecked="Option_OnChanged" />
