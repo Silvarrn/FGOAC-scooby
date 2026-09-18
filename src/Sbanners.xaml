@@ -9,7 +9,10 @@
       <Border BorderBrush="{StaticResource LineBrush}" BorderThickness="1" Background="{StaticResource PlateBrush}" Padding="12" Margin="0,0,0,18">
         <TextBlock Text="Changes to the server files must be made to allow these options to work. Use the Button below to apply the changes to these files first" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" />
       </Border>
+      <WrapPanel Margin="0,18,0,12">
       <Button Content="Apply FGO Event Toggle Patch" Width="240" HorizontalAlignment="Left" Margin="0,0,0,12" Click="ApplyEventPatch_OnClick" />
+      <TextBlock Name="PatchStatusText" Style="{StaticResource HelpTextStyle}"/>
+      </WrapPanel>
       <!-- This Patch file modifies the FGO server config to add two new options: enabled_tlf_open_ids and enabled_singularity_ids.
            The former provides logging for identifying banners that are being published by the server. The latter is used to control which banners are displayed in the terminal page. 
            Once applied. These options allow Scooby to toggle individual FGO terminal banners and open-events on/off via fgo.yaml, removing the need to vendor index.py/config.py in Scooby.

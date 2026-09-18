@@ -105,11 +105,11 @@ public partial class Sbanners : UserControl
 	{
 		try
 		{
-			StatusText.Text = ApplyEventTogglePatch();
+			PatchStatusText.Text = ApplyEventTogglePatch();
 		}
 		catch (Exception ex)
 		{
-			StatusText.Text = ex.Message;
+			PatchStatusText.Text = ex.Message;
 		}
 	}
 
