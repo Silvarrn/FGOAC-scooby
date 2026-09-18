@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -68,7 +69,7 @@ public partial class Sbanners : UserControl
 
 	private void Option_OnChanged(object sender, RoutedEventArgs e)
 	{
-		StatusText.Text = "Banner settings updated.";
+		StatusText.Text = "Banner settings updated. Make sure you press Save!";
 	}
 
 	public void Save()
@@ -76,7 +77,7 @@ public partial class Sbanners : UserControl
 		try
 		{
 			WriteEnabledSingularityIds();
-			StatusText.Text = "Banner settings saved.";
+			StatusText.Text = "Banner settings saved. Restart the game for the changes to take effect.";
 		}
 		catch (Exception ex)
 		{
@@ -98,7 +99,7 @@ public partial class Sbanners : UserControl
 				checkBox.IsChecked = false;
 			}
 		}
-		StatusText.Text = "All banners turned off.";
+		StatusText.Text = "Banner filter turned off. Restart the game for the changes to take effect.";
 	}
 
 	private void ApplyEventPatch_OnClick(object sender, RoutedEventArgs e)
@@ -118,7 +119,7 @@ public partial class Sbanners : UserControl
 		string patchPath = ResolvePatchFile();
 		if (!File.Exists(patchPath))
 		{
-			return "Patch file not found: " + patchPath;
+			return "Patch file not found in: " + patchPath; 
 		}
 
 		string patchText = StripJsonComments(File.ReadAllText(patchPath));
@@ -137,26 +138,31 @@ public partial class Sbanners : UserControl
 			string anchorNew = editElement.TryGetProperty("anchor_new", out JsonElement newElement) ? newElement.GetString() : null;
 			if (string.IsNullOrEmpty(fileName) || string.IsNullOrEmpty(anchorOld) || string.IsNullOrEmpty(anchorNew))
 			{
-				throw new InvalidOperationException("One of the patch entries is missing file, anchor_old, or anchor_new.");
+				throw new InvalidOperationException("One of the patch entries is missing! Check the file for, anchor_old, or anchor_new.");
 			}
 
 			string targetPath = ResolvePatchTarget(fileName);
 			if (!File.Exists(targetPath))
 			{
-				throw new InvalidOperationException("This file doesn't match what this patch expects — likely the fork's been updated since this version of Scooby was built. Missing file: " + targetPath);
+				throw new InvalidOperationException("This file doesn't match what this patch expects! likely the FGO client has been updated since this version of Scooby was built. Missing file: " + targetPath);
 			}
 
 			string currentText = File.ReadAllText(targetPath);
-			if (currentText.Contains(anchorNew, StringComparison.Ordinal) || currentText.Contains(PatchMarker, StringComparison.OrdinalIgnoreCase))
+			string normalizedAnchorNew = anchorNew.Replace("\n", "\r\n", StringComparison.Ordinal);
+			bool configPropertyAlreadyApplied = string.Equals(fileName, "config.py", StringComparison.OrdinalIgnoreCase)
+				&& currentText.Contains("def enabled_singularity_ids", StringComparison.Ordinal);
+			if (ContainsLineEndingInsensitive(currentText, anchorNew)
+				|| configPropertyAlreadyApplied
+				|| currentText.Contains(PatchMarker, StringComparison.OrdinalIgnoreCase))
 			{
-				messages.Add(Path.GetFileName(targetPath) + " already applied.");
+				messages.Add(Path.GetFileName(targetPath) + " already has the patch applied. 🌸");
 				continue;
 			}
 
-			int oldCount = CountExactOccurrences(currentText, anchorOld);
-			if (oldCount != 1)
+			MatchCollection oldMatches = FindLineEndingInsensitiveMatches(currentText, anchorOld);
+			if (oldMatches.Count != 1)
 			{
-				throw new InvalidOperationException("This file doesn't match what this patch expects — likely the fork's been updated since this version of Scooby was built. File: " + targetPath);
+				throw new InvalidOperationException("This file doesn't match what this patch expects! likely the FGO client has been updated since this version of Scooby was built. File: " + targetPath);
 			}
 
 			string backupPath = targetPath + ".bak-before-" + PatchMarker;
@@ -165,13 +171,28 @@ public partial class Sbanners : UserControl
 				File.Copy(targetPath, backupPath);
 			}
 
-			string updatedText = currentText.Replace(anchorOld, anchorNew, StringComparison.Ordinal);
+			Match oldMatch = oldMatches[0];
+			string updatedText = currentText.Substring(0, oldMatch.Index)
+				+ normalizedAnchorNew
+				+ currentText.Substring(oldMatch.Index + oldMatch.Length);
 			File.WriteAllText(targetPath, updatedText);
 			ValidatePythonFile(targetPath, backupPath);
 			messages.Add("Applied to " + Path.GetFileName(targetPath));
 		}
 
 		return string.Join(Environment.NewLine, messages.Count > 0 ? messages : new[] { "No event-toggle changes were needed." });
+	}
+
+	private static bool ContainsLineEndingInsensitive(string text, string value)
+	{
+		return FindLineEndingInsensitiveMatches(text, value).Count > 0;
+	}
+
+	private static MatchCollection FindLineEndingInsensitiveMatches(string text, string value)
+	{
+		string[] lines = value.Replace("\r\n", "\n", StringComparison.Ordinal).Split('\n');
+		string pattern = string.Join("\\r?\\n", lines.Select(Regex.Escape));
+		return Regex.Matches(text, pattern, RegexOptions.CultureInvariant);
 	}
 
 	private void WriteEnabledSingularityIds()
@@ -204,7 +225,7 @@ public partial class Sbanners : UserControl
 		}
 		if (serverStart < 0)
 		{
-			throw new InvalidOperationException("The server: block could not be found in fgo.yaml.");
+			throw new InvalidOperationException("The server: block could not be found in fgo.yaml. Has there been other changes made?");
 		}
 		for (int i = serverStart + 1; i < lines.Length; i++)
 		{
